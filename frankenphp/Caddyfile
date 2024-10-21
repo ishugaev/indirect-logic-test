@@ -1,0 +1,66 @@
+{
+	{$CADDY_GLOBAL_OPTIONS}
+
+	frankenphp {
+		{$FRANKENPHP_CONFIG}
+	}
+
+	# https://caddyserver.com/docs/caddyfile/directives#sorting-algorithm
+	order php_server before file_server
+
+	log default {
+		output stdout
+		format json {
+			level_format upper # fitting the monolog format
+			level_key level_name
+			message_key message
+			time_key datetime
+			time_format rfc3339_nano
+		}
+	}
+}
+
+{$CADDY_EXTRA_CONFIG}
+
+{$SERVER_NAME:localhost} {
+	log {
+		output stdout
+		format filter {
+			wrap json {
+				level_format upper # fitting the monolog format
+				level_key level_name
+				message_key message
+				time_key datetime
+				time_format rfc3339_nano
+			}
+			fields {
+				# Redact the authorization query parameter that can be set by Mercure
+				request>uri query {
+					replace authorization REDACTED
+				}
+				request>remote_ip ip_mask {
+					ipv4 16
+					ipv6 32
+				}
+				request>client_ip ip_mask {
+					ipv4 16
+					ipv6 32
+				}
+				request>headers>X-Forwarded-For ip_mask {
+					ipv4 16
+					ipv6 32
+				}
+			}
+		}
+	}
+
+	root * /app/public
+	encode zstd br gzip
+
+	{$CADDY_SERVER_EXTRA_DIRECTIVES}
+
+	# Disable Topics tracking if not enabled explicitly: https://github.com/jkarlin/topics
+	header ?Permissions-Policy "browsing-topics=()"
+
+	php_server
+}

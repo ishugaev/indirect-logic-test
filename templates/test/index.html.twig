@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Take the Test{% endblock %}
+
+{% block header %}Test Questions{% endblock %}
+
+{% block body %}
+    <form action="{{ path('test_submit') }}" method="post">
+        {% for question in questions %}
+            <div class="card mb-3">
+                <div class="card-header question">
+                    <strong>{{ loop.index }}. {{ question.text }}</strong>
+                </div>
+                <div class="card-body">
+                    {% for answer in question.getAnswers() %}
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="{{ question.id }}[]" value="{{ answer.id }}" id="answer-{{ answer.id }}">
+                            <label class="form-check-label" for="answer-{{ answer.id }}">
+                                {{ answer.text }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

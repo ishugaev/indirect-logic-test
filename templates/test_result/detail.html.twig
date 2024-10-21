@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test Result Detail{% endblock %}
+
+{% block header %}Test Result Detail{% endblock %}
+
+{% block body %}
+    <ul>
+        {% for userAnswer in testResult.userAnswers %}
+            <li>
+                <strong>Question:</strong> {{ userAnswer.getQuestion().getText() }}<br>
+                <strong>Your Answer:</strong> {{ userAnswer.getAnswer().getText() }}<br>
+                <strong>Correct:</strong> {{ userAnswer.isCorrect() ? 'Yes' : 'No' }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a href="{{ path('test_result_list') }}" class="btn btn-primary">Back to Test Results</a>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test Results{% endblock %}
+
+{% block header %}Test Results{% endblock %}
+
+{% block body %}
+    <ul>
+        {% for testResult in testResults %}
+            <li>
+                <a href="{{ path('test_result_detail', { 'id': testResult.id }) }}">
+                    Test Result #{{ testResult.id }} - {{ testResult.createdAt|date('Y-m-d H:i') }}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

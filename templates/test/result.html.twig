@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Test Results{% endblock %}
+
+{% block header %}Test Results{% endblock %}
+
+{% block body %}
+    <h2>Correctly Answered Questions</h2>
+    <ul>
+        {% for question in testResult.getCorrectlyAnsweredQuestions %}
+            <li class="correct">
+                <strong>{{ question.text }}</strong><br>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <h2>Incorrectly Answered Questions</h2>
+    <ul>
+        {% for question in testResult.getIncorrectlyAnsweredQuestions %}
+            <li class="incorrect">
+                <strong>{{ question.text }}</strong><br>
+            </li>
+        {% endfor %}
+    </ul>
+    <a href="{{ path('test_result_detail', { 'id': testResult.id }) }}" class="btn btn-primary">
+        View Details
+    </a>
+    <a href="{{ path('test') }}" class="btn btn-primary">Retake the Test</a>
+{% endblock %}
