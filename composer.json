@@ -24,6 +24,7 @@
         "symfony/yaml": "7.1.*"
     },
     "config": {
+        "bin-dir": "bin",
         "allow-plugins": {
             "php-http/discovery": true,
             "symfony/flex": true,
