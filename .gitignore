@@ -7,8 +7,9 @@
 /var/
 /vendor/
 /pgdata/
-/bin/
-/.idea/
+/bin/*
+!/bin/console
+.idea
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###

@@ -7,7 +7,7 @@
 ```make up```
 
 ### 3. install the dependencies
-```make composer-install```
+```make composer c=install```
 
 ### 4. run the migrations
 ```make sh``` will open shell in the php container
