@@ -8,6 +8,7 @@
 /vendor/
 /pgdata/
 /bin/
+/.idea/
 ###< symfony/framework-bundle ###
 
 ###> symfony/phpunit-bridge ###
